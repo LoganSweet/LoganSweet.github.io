@@ -1,1 +1,1 @@
-# LoganSweet.githuub.io
+# LoganSweet.github.io
