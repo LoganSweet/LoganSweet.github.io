@@ -2469,6 +2469,17 @@
 				width: 100%;
 			}
 
+		.image.leftbigger, .image.rightbigger {
+			width: 60%;
+			max-width: 20rem;
+		}
+
+			.image.leftbigger img, .image.rightbigger img {
+				width: 100%;
+			}
+
+
+
 		.image.left {
 			float: left;
 			margin: 0 1.5rem 1rem 0;
@@ -2488,6 +2499,17 @@
 		}
 
 			.image.fit img {
+				width: 100%;
+			}
+
+
+		.image.fitsmaller {
+			display: block;
+			margin: 0 0 2rem 0;
+			width: 100%;
+		}
+
+			.image.fitsmaller img {
 				width: 100%;
 			}
 
