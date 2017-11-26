@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Advanced Encryption Standard</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body>
+
+				<section class="wrapper style1 align-center">
+					<div class="inner">
+						<div class="index align-left">
+							<section>
+									<header>
+										<ul class="actions">
+
+											<li><a href="index.html" class="button">Back</a></li>
+										</ul>
+									</header>
+
+									<div class="content">
+
+										<h1>Advanced Encryption Standard</h1>
+										
+										<h4>For our final Computer Architecture project, Logan and Maggie created a simulation of the Advanced Encryption Standard.   </h4>
+
+										<center>
+										<ul class="actions fit">
+											<li><a href="assets/CircuitsFinalLab.pdf" class="button special fit">Add a button here if you want! </a></li>
+										</ul>
+										</center>
+
+                    
+                    <h2>History of Advanced Encryption Standard</h2>
+                    
+										<p> 
+										This is where we will add some text about what we did and why we did it!  
+										</p>	
+
+
+										<center>
+						<ul class="actions fit">
+											<li><a href="assets/CircuitsFinalLab.pdf" class="button special fit">See Full Lab Report</a></li>
+										</ul>
+										</center>
+			
+							</section>
+						</div>
+						</div>
+				</section>
+
+				<!-- Footer -->
+					<footer class="wrapper style1 align-center">
+						<div class="inner">
+							<p>&copy; Sweet and Jakus 2017. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+						</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
