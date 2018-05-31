@@ -2461,8 +2461,8 @@
 		}
 
 		.image.left, .image.right {
-			width: 40%;
-			max-width: 10rem;
+			width: 30%;
+			max-width: 75rem;
 		}
 
 			.image.left img, .image.right img {
@@ -2471,7 +2471,7 @@
 
 		.image.leftbigger, .image.rightbigger {
 			width: 60%;
-			max-width: 20rem;
+			max-width: 150rem;
 		}
 
 			.image.leftbigger img, .image.rightbigger img {
@@ -2505,12 +2505,12 @@
 
 		.image.fitsmaller {
 			display: block;
-			margin: 0 0 2rem 0;
-			width: 100%;
+			margin: 1rem 1rem 2rem 10rem;
+			width: 80%;
 		}
 
 			.image.fitsmaller img {
-				width: 100%;
+				width: 80%;
 			}
 
 		.image.main {
