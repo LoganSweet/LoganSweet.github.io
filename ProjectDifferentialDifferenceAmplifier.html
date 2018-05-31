@@ -12,17 +12,12 @@
 					<div class="inner">
 						<div class="index align-left">
 							<section>
-									<header>
-										<ul class="actions">
-
-											<li><a href="index.html" class="button">Back</a></li>
-										</ul>
-									</header>
-
 									<div class="content">
 
+                                        <a href="index.html" class="button">Back</a>
+
 										<h1>Differential Difference Amplifier</h1>
-										
+
 										<h4>For a class final project I worked with a partner to build and measure as well as simulate three differential difference amplifiers. nMOS and pMOS transistors were breadboarded to collect data, and LTspice was used to simulate. We evaluated each circuit’s incremental output resistance, differential mode voltage gain, and incremental transconductance gain.  </h4>
 
 										<center>
@@ -31,32 +26,96 @@
 										</ul>
 										</center>
 
-										<span class="image fit"><img src="images/BreadBoardCircuit3.jpg" alt="" /></span>
+										<span class="image fitsmaller"><img src="images/BreadBoardCircuit3.jpg" alt="" /> </span>
 
-										<p>The goal of the lab was to characterize and study the differences between three different versions of the differential difference amplifier (DDA). To do so, the three circuits below were built and measured using a custom source-measure untit then simulated in LTspice XVII. For each circuit, we ran the same 5 experiments.   </p>
+										<p>The goal of the lab was to characterize and study the differences between three different versions of the differential difference amplifier (DDA). To do so, the three circuits below were built and measured using a custom source-measure unit and then also simulated in LTspice XVII.    </p>
 
-										<p>  In experiment 1 we evaluated the voltage transfer characteristic of an inverting and noninverting input by setting three inputs but one to a constant voltage and sweeping the fourth input voltage while measuring output voltage. 
+                                        <span class="image fit"><img src="images/diffdiffamp_allimages.png" alt="" /> </span>
+
+
+                                        <section class="wrapper style1 align-center" id="reference">
+                    						<div class="inner">
+                                                <h2>Experiments</h2>
+                                                <p>In order to compare the circuits to one another as well as to compare the built circuits to the simulated circuits, we performed the same five experiments for each circuit.  </p>
+                    							<div class="index align-left">
+
+                    									<section>
+                    										<header><h3>Experiment 1</h3></header>
+                    										<!-- <div class="content"> -->
+                    												<section>
+                                                                        <p>  In experiment 1 we evaluated the voltage transfer characteristic of an inverting and noninverting input by setting three inputs but one to a constant voltage and sweeping the fourth input voltage while measuring output voltage.
+                                										</p>
+                                                                    </section>
+                                                            <!-- </div> -->
+    									                 </section>
+
+                                                         <section id="reference-banner">
+                                                             <header><h3>Experiment 2</h3></header>
+                                                             <div class="content">
+                                                                 <section>
+                                                                     <p> In experiment 2 we swept the voltage of one of the inverting inputs in fine increments around the values of the other three inputs. This provided higher-resolution data than the previous experiment, which allowed us to calculate the differential mode gain of the circuit.
+                	                                                 </p>
+                                                                 </section>
+                                                         </section>
+
+                                                         <section>
+                     										<header><h3>Experiment 3</h3></header>
+                     										<div class="content">
+                     												<section>
+                                                                        <p> In experiment 3 we set all inputs to a constant voltage and swept the output voltage from rail to rail. Using the measured output current we calculated the incremental output resistance.
+                                                                       </p>
+                                                                     </section>
+                                                             </div>
+     									                 </section>
+
+                                                         <section>
+                     										<header><h3>Experiment 4</h3></header>
+                     										<div class="content">
+                     												<section>
+                                                                        <p> In experiment 4 we chose an output voltage for which the circuit had a significant gain, then swept first a non-inverting and then an inverting input in fine increments around the other three inputs. We measured the output current to calculate incremental transconductance gain.
+                                                                       </p>
+                                                                     </section>
+                                                             </div>
+     									                 </section>
+
+                                                         <section>
+                     										<header><h3>Experiment 5</h3></header>
+                     										<div class="content">
+                     												<section>
+                                                                        <p>
+                                                                       In experiment 5 we created a unity gain follower by connecting the non-inverting inputs to the input voltage and the inverting inputs to the output voltage.
+                                                                       </p>
+                                                                     </section>
+                                                             </div>
+     									                 </section>
+
+
+                                                     </div>
+                                                     </div>
+                                                  </section>
+
+                                        <!-- <p>  In experiment 1 we evaluated the voltage transfer characteristic of an inverting and noninverting input by setting three inputs but one to a constant voltage and sweeping the fourth input voltage while measuring output voltage.
 										</p>
 
-										<p> In experiment 2 we swept the voltage of one of the inverting inputs in fine increments around the values of the other three inputs. This provided higher-resolution data than the previous experiment, which allowed us to calculate the differential mode gain of the circuit. 
+										<p> In experiment 2 we swept the voltage of one of the inverting inputs in fine increments around the values of the other three inputs. This provided higher-resolution data than the previous experiment, which allowed us to calculate the differential mode gain of the circuit.
 										</p>
 
-										<p> In experiment 3 we set all inputs to a constant voltage and swept the output voltage from rail to rail. Using the measured output current we calculated the incremental output resistance. 
+										<p> In experiment 3 we set all inputs to a constant voltage and swept the output voltage from rail to rail. Using the measured output current we calculated the incremental output resistance.
 										</p>
 
-										<p> In experiment 4 we chose an output voltage for which the circuit had a significant gain, then swept first a non-inverting and then an inverting input in fine increments around the other three inputs. We measured the output current to calculate incremental transconductance gain. 
+										<p> In experiment 4 we chose an output voltage for which the circuit had a significant gain, then swept first a non-inverting and then an inverting input in fine increments around the other three inputs. We measured the output current to calculate incremental transconductance gain.
 										</p>
 
-										<p> 
-										In experiment 5 we created a unity gain follower by connecting the non-inverting inputs to the input voltage and the inverting inputs to the output voltage. 
+										<p>
+										In experiment 5 we created a unity gain follower by connecting the non-inverting inputs to the input voltage and the inverting inputs to the output voltage.
+										</p> -->
+                                        <hr />
+
+										<p>
+										The measurements from expreiment 4 allowed us to directly measure the incremental transconductance gain of the DDA. However, in experiments 2 and 3 we measured the differential mode gain and incremental output resistance, which can be used to calculate the incremental transconductance gain.
+
+										In the conclusion of our lab report, we compared the differences in these values, as well as the values obtained from LTspice simulations.
 										</p>
-
-										
-										<p> 
-										The measurements from expreiment 4 allowed us to directly measure the incremental transconductance gain of the DDA. However, in experiments 2 and 3 we measured the differential mode gain and incremental output resistance, which can be used to calculate the incremental transconductance gain. 
-
-										In the conclusion of our lab report, we compared the differences in these values, as well as the values obtained from LTspice simulations. 
-										</p>	
 
 
 										<center>
@@ -64,11 +123,20 @@
 											<li><a href="assets/CircuitsFinalLab.pdf" class="button special fit">See Full Lab Report</a></li>
 										</ul>
 										</center>
-			
+
 							</section>
 						</div>
 						</div>
+
+                        <header>
+                            <ul class="actions">
+                                <li><a href="index.html" class="button">Back</a></li>
+                            </ul>
+                        </header>
+
 				</section>
+
+
 
 				<!-- Footer -->
 					<footer class="wrapper style1 align-center">
@@ -86,4 +154,3 @@
 
 	</body>
 </html>
-
