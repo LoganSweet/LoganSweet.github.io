@@ -2462,7 +2462,7 @@
 
 		.image.left, .image.right {
 			width: 30%;
-			max-width: 75rem;
+			max-width: 50rem;
 		}
 
 			.image.left img, .image.right img {
