@@ -15,37 +15,162 @@
                                         <a href="index.html" class="button">Back</a>
 
 										<center><h1>Bomb Defusal Penny Arcade Game</h1></center>
-										<h4>For a final Elecanisms class project my team and I created a collaborative arcade game based on <i>Keep Talking and Nobody Explodes</i>. Our game runs on up to seven PIC24F microcontrollers that communicate via I2C.
-
-                                        </h4>
+										<h4>For a final Elecanisms class project my team and I created a collaborative arcade game based on <i>Keep Talking and Nobody Explodes</i>. Our game runs on up to seven PIC24F microcontrollers that communicate via I2C.</h4>
 
                                         <span class="image fit"><img src="images/bothbombs.jpg" alt="" /></span>
 
+                                        <br> <br>
 
+                                        <h2>The Game</h2>
 
-
-
-
-                                        <!-- Code -->
-
-
-
-                                        <h2>The Assignment </h2>
+                                        <h3>Assignment </h3>
                                         <p>BombSquad is a penny-operated arcade game based on the VR/ PC game <a href="http://www.keeptalkinggame.com">Keep Talking and Nobody Explodes</a>. Similar to the source material, BombSquad challenges a group to collaboratively defuse a bomb, with a catch: only one team member can see the bomb, while the remaining players can see the (intentionally confusing) manual. We had a lot of fun playing the orignal game as a team, but thought it could be made more compellin with a physical interface instead of a digital one.  <p>
 
                                         <p>This was also a class assignement for the Olin College ENGR 3110: Elecanisms course, so there were a few requirements we had to follow. It had to be a penny-operated arcade game with significant mechaical, electtrical, and software components, and the majority of our firmware needed to run on a custom Microchip PIC24F board provided by a professor.  </p>
 
-                                        <h2>The Game </h2>
+                                        <h3>Gameplay</h3>
+                                        <p>To begin a game, one player steps into the booth behind the curtain. As soon as they insert a penny, the timer starts and the defusal begins. The other players use a printed or digital copy of the manual to instruct the defuser on how to solve the puzzles in front of them. Many of these puzzle modules can generate strikes, getting the defuser one step closer to "explosion." If you get three strikes or the timer runs out before all of the modules are solved, the game ends. If all connected modules are completed before the timer counts down, you sucessfully defuse the bomb!
+                                        </p>
+                                        <p>The instrucitons in the manual are written to be intentionally confusing to the readers as well as the defuser, so good communication is key. To solve the modules, you need to be able to communicate not only which module you are working on, but also the initial state of the bomb, a serial number and status lights, a language you may or may not know (morse code), and more.  </p>
+
+                                        <!-- <hr /> -->
+
+                                        <h2>Development</h2>
+
+                                        <h3>System Overview</h3>
+
+                                        <p><span class="image fitsmaller"><img src="images/systemdiagram.png" alt="" /></span>
+                                        In addition to the PIC24 microcontrollers,we used an arduino to control the coin acceptor and overhead light in the booth. An early iteration of the game used a Neopixel strip which used a custom Adafruit C++ library that we decided not to port to C, so we used an Arduino to control the overhead light and initialize the game once a coin was inserted. Ultimately, we chose to use a simple LED bar to imitate a florescent light that we could have easily controlled with the PIC boards, but we left the arduino portion of the system as-is. <a href="https://github.com/elecanisms-2018-bombsquad/BombSquad/blob/master/arduino_code/coin_acceptor/coin_acceptor.ino">Arduino code can be seen here</a>.
+
+                                        </p>
+
+                                        <p>The coin acceptor and Vin of the Arduino were connected to a 12V DC power supply. Once a coin was inserted, the Arduino turned on a relay to connect the PIC Vin rail to the 5V power supply and turned on the overhead light. As the game progressed, the Arduino randomly flickered the overhead LED bar to imitate a low-quality florescent bulb.The relay connected the 5V power supply to the bomb's 5V rail, which also supplied the Vin of each PIC microcontroller. Once they had power the modules ran their game code, inclusing an initialization stage, a game stage, and depending on the player's success could progress to a win state.
+                                        </p>
 
                                         <h3>Modularity</h3>
-										<p>Since we didn't quite know what we were getting into (only one teammate was comfortable with C before the start of the semester) we decided to make the game modular from the beginning. In <i>Keep Talking and Nobody Explodes</i> the player is presented with a few randomly-selected bomb modules to solve. These are independent from one another, but occasionally require checking the game serial number or other info to solve. Modeling after this, we decided to make a number of semi-independent games that could easily connect and detatch from the main structural frame of the game. Our designs for the frame changed as the project went on, so we wanted to be sure that the code we wrote worked with any number of modules greater than zero.
+										<p><span class="image right"><img src="images/de9_layout.png" alt="" /></span>
+                                        We decided to make the game modular from the beginning, so we created a number of semi-independent games that could easily connect and detatch from the main structural frame of the game. Our designs for the frame changed as the project went on, so we wanted to be sure that the code we wrote worked with any number of modules. This also meant that if we only made a few functioning modules the game could still be playable, and if we made more modules than could fit on the frame, the puzzle modules could be swapped out for different play experiences.
                                         </p>
-                                        <p>To make this solveable, we needed a manual as well.    </p>
+
+                                        <p> To  do this, all of our modules had a DE-9 connector on the back that made contact when they snapped into the main frame of the game. We used the pin layout on the right to connect the modules to power, ground, and the I2C bus for communication with the master module. We chose this layout to isloate the I2C bus as much as possible from noise from our system. we ended up not having any issues with noise internfering with I2C data, but the blank connections left floating were initially reserved for ground in case we needed to further isolate the I2C signal.
+                                        </p>
+
+
+                                        <h3>I2C Functionality</h3>
+                                        <p>One of my main roles on the team was in working on the I2C communication for the game. Other than the hardware-level functionality of the microcontroller, there was no built-in I2C functions for us to work from. This was an awesome challenge to work on, and I learned a lot about the communication protocol as well as how to work at the register level on microcontrollers and how to read and interpret <a href="http://www.microchip.com.tw/Data_CD/Reference%20Manuals/16-Bits%20Family%20Reference%20Manual/PIC24F%20FRM%20Section%2024.%20Inter-Integrated%20Circuit%20(I2C)%20(DS39702A).pdf"> a microcontroller datasheet</a>.
+                                        </p>
+
+                                        <p>To start, I worked on sending I2C messages to a dedicated peripheral. With the datasheet and a lot of help from a (thankfully WayBack Machine archived) <a href="https://web.archive.org/web/20161223060411/http://www.engscope.com/pic24-tutorial/10-2-i2c-basic-functions/">very helpful tutorial blog</a> I was able to send and reveive basic I2C messages, which I confirmed with an off-the-shelf LCD screen from adafruit. The functions we used to send these messages can be found <a href="https://github.com/elecanisms-2018-bombsquad/BombSquad/blob/master/lib/i2c_reg.c">in our code repository here</a>.
+                                        </p>
+
+                                        <p>It proved to be another challenge to get one of our microcontrollers to act as a follower instead of a master. To do this, I used <a href="http://courses.ece.msstate.edu/ece3724/main_pic24/docs/sphinx/textbook_examples.html#chapter-13-advanced-topics-dma-ecan-i2c-slave-flash-programming-comparator">the online version of a textbook</a> by B. Jones, R. Reese, and J.W. Bruce. Specifically, I modeled the state of the puzzle (follower) modules on <a href="http://courses.ece.msstate.edu/ece3724/main_pic24/docs/sphinx/chap13/i2c_slave_reverse_string.c.html">the code on this page</a>.
+                                        </p>
+
+                                        <p>All this looks like I was just able to string togther code from online, but the functions provided from my two main sources needed a lot of prodding before they worked well with our system. It was frustrating at times, but incredibly rewarding when my team and I were able to get it working and send messages to and from different game modules.
+                                        </p>
+
+                                        <h3>Module State Machines</h3>
+
+                                        <p>There are two main categories of modules in the game: the master module which controls the timer, serial number and staus LEDs, number of strikes, speaker, and win condition, and the puzzle/ follower modules that each have their own bomb defusing game. We controlled these modules with finite state machines based on the FSM backbone <a href="https://github.com/OlinElecanisms/elecanisms2018/blob/master/fsm1/fsm1.c">suggested by one of our professors</a>.
+
+                                            <br /> <br />
+                                        Each of the state machine functions followed this basic formula:
+
+                                            <div class="content">
+                                                <pre><code>void statename(void) {
+
+    if (state != last_state) {  // if we are entering the state, do initialization stuff
+        last_state = state;
+        // other initialization code goes here
+    }
+
+    // State task code goes here
+
+    if (condition1) {        // Check for state transitions
+        state = otherstate1;
+    }
+    if (condition2) {
+        state = otherstate2;
+    }
+
+    if (state != last_state) {  // if we are leaving the state, do clean up stuff
+        // state exit code goes here
+    }
+}    </code></pre>
+                                            </div>
+                                        </p>
+
+                                        <p>The state machine for the master module has four possible states: idle, run, end with a win, and end with a fail.
+                                        </p>
+
+                                        <p>The state machines for the puzzle modules are a little more complicated. Initially, we created a basic state machine for the puzzles that included setup, run, solved, and end with a win or fail that mirrored the master module's end states. However, some of the modules we wrote also needed a state machine within their run states to control the functionality of the puzzle itself. We theoretically could have modified the <i>run</i> state to be multiple states that made gameplay happen, but that would have required us to modify the startup and cleanup of each of those expanded-out states, making them much different from the others. Also, since a player could win from any of these theoretical run states, there would have to be a lot of repeated code.
+                                        </p>
+
+                                        <p>To solve this, I used a nested state machine to run both the basic module functions as well as keep track of game logic. To do this, the run state in the main state machine used conditional statements to call a gameplay function in a secondary state machine. Since this FSM was separate, the run state was still active at the same time as the gameplay state, so things like strike polling and the completion LED would not be interrupted. If the gameplay state machine determined that the puzzle was solved, it would set the main state machine to solved, at which point the run state could do its cleanup tasks before the win state took over. On the other hand, if the master module signaled, for example, that the game was over (due to strikes or time running out) conditionals in the run state could reset the overall module state to the correct state.
+                                        </p>
+
+                                        <p>All of that long 
+                                        </p>
+
+                                        <h3>Transmitted I2C Data</h3>
+
+                                        <p>Once we were able to send data back and forth between our master and follower modules, we needed to decide what we would send and what the messages would look like.
+                                        </p>
+
+                                        <p>
+                                        </p>
+
+                                        <p>
+                                        </p>
+
+                                        <h3>Debug Strategies</h3>
+
+
+                                        <p>
+                                        </p>
+
+
+
+
+
+
+
+                                        <hr /><hr />
+
 
 
                                         <h2>The Modules</h2>
-										<p></p>
+                                        <section class="wrapper style1 align-center" id="reference">
+                    						<!-- <div class="inner"> -->
+                                                <div class="index align-left">
+                									<section>
+                                                        <header><h3>Module name1</h3></header>
+                    										<section>
+                                                                <span class="image right"><img src="images/bomb_light2.jpg" alt="" /></span>
+                                                                <p>  Text to describe moduled goes heretional therapist and two fashion designers to create a garment for our client, Jim. Due to a spinal cord injury, Jim has limited feeling and range of motion in his arms and torso. This made it difficult for him to adjust traditional clothing throughout
+                                                                </p>
 
+                                                            </section>
+    									            </section>
+
+                                                    <section>
+                                                        <header><h3>Module name2</h3></header>
+                    										<section>
+                                                                <span class="image right"><img src="images/bomb_light2.jpg" alt="" /></span>
+                                                                <p>  Text to describe moduled goes here
+                                								</p>
+                                                            </section>
+    									            </section>
+
+                                                     </div>
+                                            </section>
+
+
+
+
+
+                                        <h2>Hardware & Sensing </h2>
+										<p></p>
 
                                         <section>
 										<div class="content">
@@ -56,9 +181,6 @@
 										</div>
 										</section>
 
-
-                                        <h2>Hardware & Sensing </h2>
-										<p></p>
 
                                         <section>
         									<header>
