@@ -56,13 +56,13 @@
                         <section id="thegame">
                             <h2>The Game</h2>
                             <h3 id="first">Assignment </h3>
-                            <p>BombSquad is a penny-operated arcade game based on the VR/ PC game <a href="http://www.keeptalkinggame.com">Keep Talking and Nobody Explodes</a>. Similar to the source material, BombSquad challenges a group to collaboratively defuse a bomb, with a catch: only one team member can see the bomb, while the remaining players can see the (intentionally confusing) manual. We had a lot of fun playing the orignal game as a team, but thought it could be made more compellin with a physical interface instead of a digital one.  </p>
-                            <p>This was also a class assignement for the Olin College ENGR 3110: Elecanisms course, so there were a few requirements we had to follow. It had to be a penny-operated arcade game with significant mechaical, electtrical, and software components, and the majority of our firmware needed to run on a custom Microchip PIC24F board provided by a professor.  </p>
+                            <p>BombSquad is a penny-operated arcade game based on the VR/ PC game <a href="http://www.keeptalkinggame.com">Keep Talking and Nobody Explodes</a>. Similar to the source material, BombSquad challenges a group to collaboratively defuse a bomb, with a catch: only one team member can see the bomb, while the remaining players can see the (intentionally confusing) manual. We had a lot of fun playing the original game as a team, but thought it could be made more compelling with a physical interface instead of a digital one.  </p>
+                            <p>This was also a class assignement for the Olin College ENGR 3110: Elecanisms course, so there were a few requirements we had to follow. It had to be a penny-operated arcade game with significant mechainical, electrical, and software components, and the majority of our firmware needed to run on a custom Microchip PIC24F board provided by a professor.  </p>
 
                             <h3>Gameplay</h3>
-                            <p>To begin a game, one player steps into the booth behind the curtain. As soon as they insert a penny, the timer starts and the defusal begins. The other players use a printed or digital copy of the manual to instruct the defuser on how to solve the puzzles in front of them. Many of these puzzle modules can generate strikes, getting the defuser one step closer to "explosion." If you get three strikes or the timer runs out before all of the modules are solved, the game ends. If all connected modules are completed before the timer counts down, you sucessfully defuse the bomb!
+                            <p>To begin a game, one player steps into the booth behind the curtain. As soon as they insert a penny, the timer starts and the defusal begins. The other players use a printed or digital copy of the manual to instruct the defuser on how to solve the puzzles in front of them. Many of these puzzle modules can generate strikes, getting the defuser one step closer to "explosion." If you get three strikes or the timer runs out before all of the modules are solved, the game ends. If all connected modules are completed before the timer counts down, you successfully defuse the bomb!
                             </p>
-                            <p>The instrucitons in the manual are written to be intentionally confusing to the readers as well as the defuser, so good communication is key. To solve the modules, you need to be able to communicate not only which module you are working on, but also the initial state of the bomb, a serial number and status lights, a language you may or may not know (morse code), and more.  </p>
+                            <p>The instructions in the manual are written to be intentionally confusing to the readers as well as the defuser, so good communication is key. To solve the modules, you need to be able to communicate not only which module you are working on, but also the initial state of the bomb, a serial number and status lights, a language you may or may not know (Morse code), and more.  </p>
                         </section>
 
                         <section id="development">
@@ -72,18 +72,18 @@
 
                                 <p>
                                 <span class="image fitsmaller"><img src="images/systemdiagram.png" alt="" /></span>
-                                In addition to the PIC24 microcontrollers,we used an arduino to control the coin acceptor and overhead light in the booth. An early iteration of the game used a Neopixel strip which used a custom Adafruit C++ library that we decided not to port to C, so we used an Arduino to control the overhead light and initialize the game once a coin was inserted. Ultimately, we chose to use a simple LED bar to imitate a florescent light that we could have easily controlled with the PIC boards, but we left the arduino portion of the system as-is. <a href="https://github.com/elecanisms-2018-bombsquad/BombSquad/blob/master/arduino_code/coin_acceptor/coin_acceptor.ino">Arduino code can be seen here</a>.
+                                In addition to the PIC24 microcontrollers,we used an Arduino to control the coin acceptor and overhead light in the booth. An early iteration of the game used a Neopixel strip which used a custom Adafruit C++ library that we decided not to port to C, so we used an Arduino to control the overhead light and initialize the game once a coin was inserted. Ultimately, we chose to use a simple LED bar to imitate a florescent light that we could have easily controlled with the PIC boards, but we left the Arduino portion of the system as-is. <a href="https://github.com/elecanisms-2018-bombsquad/BombSquad/blob/master/arduino_code/coin_acceptor/coin_acceptor.ino">Arduino code can be seen here</a>.
                                 </p>
 
-                                <p>The coin acceptor and Vin of the Arduino were connected to a 12V DC power supply. Once a coin was inserted, the Arduino turned on a relay to connect the PIC Vin rail to the 5V power supply and turned on the overhead light. As the game progressed, the Arduino randomly flickered the overhead LED bar to imitate a low-quality florescent bulb.The relay connected the 5V power supply to the bomb's 5V rail, which also supplied the Vin of each PIC microcontroller. Once they had power the modules ran their game code, inclusing an initialization stage, a game stage, and depending on the player's success could progress to a win state.
+                                <p>The coin acceptor and Vin of the Arduino were connected to a 12V DC power supply. Once a coin was inserted, the Arduino turned on a relay to connect the PIC Vin rail to the 5V power supply and turned on the overhead light. As the game progressed, the Arduino randomly flickered the overhead LED bar to imitate a low-quality florescent bulb. The relay connected the 5V power supply to the bomb's 5V rail, which also supplied the Vin of each PIC microcontroller. Once they had power the modules ran their game code, including an initialization stage, a game stage, and depending on the player's success could progress to a win state.
                                 </p>
 
                             <h3>Modularity</h3>
                                 <p><span class="image right"><img src="images/de9_layout.png" alt="" /></span>
-                                    We decided to make the game modular from the beginning, so we created a number of semi-independent games that could easily connect and detatch from the main structural frame of the game. Our designs for the frame changed as the project went on, so we wanted to be sure that the code we wrote worked with any number of modules. This also meant that if we only made a few functioning modules the game could still be playable, and if we made more modules than could fit on the frame, the puzzle modules could be swapped out for different play experiences.
+                                    We decided to make the game modular from the beginning, so we created a number of semi-independent games that could easily connect and detach from the main structural frame of the game. Our designs for the frame changed as the project went on, so we wanted to be sure that the code we wrote worked with any number of modules. This also meant that if we only made a few functioning modules the game could still be playable, and if we made more modules than could fit on the frame, the puzzle modules could be swapped out for different play experiences.
                                 </p>
 
-                                <p> To  do this, all of our modules had a DE-9 connector on the back that made contact when they snapped into the main frame of the game. We used the pin layout on the right to connect the modules to power, ground, and the I2C bus for communication with the master module. We chose this layout to isloate the I2C bus as much as possible from noise from our system. we ended up not having any issues with noise internfering with I2C data, but the blank connections left floating were initially reserved for ground in case we needed to further isolate the I2C signal.
+                                <p> To  do this, all of our modules had a DE-9 connector on the back that made contact when they snapped into the main frame of the game. We used the pin layout on the right to connect the modules to power, ground, and the I2C bus for communication with the master module. We chose this layout to isolate the I2C bus as much as possible from noise from our system. we ended up not having any issues with noise interfering with I2C data, but the blank connections left floating were initially reserved for ground in case we needed to further isolate the I2C signal.
                                 </p>
 
 
@@ -91,18 +91,18 @@
                                 <p>One of my main roles on the team was in working on the I2C communication for the game. Other than the hardware-level functionality of the microcontroller, there was no built-in I2C functions for us to work from. This was an awesome challenge to work on, and I learned a lot about the communication protocol as well as how to work at the register level on microcontrollers and how to read and interpret <a href="http://www.microchip.com.tw/Data_CD/Reference%20Manuals/16-Bits%20Family%20Reference%20Manual/PIC24F%20FRM%20Section%2024.%20Inter-Integrated%20Circuit%20(I2C)%20(DS39702A).pdf"> a microcontroller datasheet</a>.
                                 </p>
 
-                                <p>To start, I worked on sending I2C messages to a dedicated peripheral. With the datasheet and a lot of help from a (thankfully WayBack Machine archived) <a href="https://web.archive.org/web/20161223060411/http://www.engscope.com/pic24-tutorial/10-2-i2c-basic-functions/">very helpful tutorial blog</a> I was able to send and reveive basic I2C messages, which I confirmed with an off-the-shelf LCD screen from adafruit. The functions we used to send these messages can be found <a href="https://github.com/elecanisms-2018-bombsquad/BombSquad/blob/master/lib/i2c_reg.c">in our code repository here</a>.
+                                <p>To start, I worked on sending I2C messages to a dedicated peripheral. With the datasheet and a lot of help from a (thankfully WayBack Machine archived) <a href="https://web.archive.org/web/20161223060411/http://www.engscope.com/pic24-tutorial/10-2-i2c-basic-functions/">very helpful tutorial blog</a> I was able to send and receive basic I2C messages, which I confirmed with an off-the-shelf LCD screen from adafruit. The functions we used to send these messages can be found <a href="https://github.com/elecanisms-2018-bombsquad/BombSquad/blob/master/lib/i2c_reg.c">in our code repository here</a>.
                                 </p>
 
                                 <p>It proved to be another challenge to get one of our microcontrollers to act as a follower instead of a master. To do this, I used <a href="http://courses.ece.msstate.edu/ece3724/main_pic24/docs/sphinx/textbook_examples.html#chapter-13-advanced-topics-dma-ecan-i2c-slave-flash-programming-comparator">the online version of a textbook</a> by B. Jones, R. Reese, and J.W. Bruce. Specifically, I modeled the state of the puzzle (follower) modules on <a href="http://courses.ece.msstate.edu/ece3724/main_pic24/docs/sphinx/chap13/i2c_slave_reverse_string.c.html">the code on this page</a>.
                                 </p>
 
-                                <p>All this looks like I was just able to string togther code from online, but the functions provided from my two main sources needed a lot of prodding before they worked well with our system. It was frustrating at times, but incredibly rewarding when my team and I were able to get it working and send messages to and from different game modules.
+                                <p>All this looks like I was just able to string together code from online, but the functions provided from my two main sources needed a lot of prodding before they worked well with our system. It was frustrating at times, but incredibly rewarding when my team and I were able to get it working and send messages to and from different game modules.
                                 </p>
 
                             <h3>Module State Machines</h3>
 
-                                <p>There are two main categories of modules in the game: the master module which controls the timer, serial number and staus LEDs, number of strikes, speaker, and win condition, and the puzzle/ follower modules that each have their own bomb defusing game. We controlled these modules with finite state machines based on the FSM backbone <a href="https://github.com/OlinElecanisms/elecanisms2018/blob/master/fsm1/fsm1.c">suggested by one of our professors</a>.
+                                <p>There are two main categories of modules in the game: the master module which controls the timer, serial number and status LEDs, number of strikes, speaker, and win condition, and the puzzle/ follower modules that each have their own bomb defusing game. We controlled these modules with finite state machines based on the FSM backbone <a href="https://github.com/OlinElecanisms/elecanisms2018/blob/master/fsm1/fsm1.c">suggested by one of our professors</a>.
                                 <br /> <br />
                                 Each of the state machine functions followed this basic formula:
 
@@ -146,10 +146,10 @@
                                 <span class="image fitsmaller"><img src="images/i2c_data.png" alt="" /></span>
                                 </p>
 
-                                <p>The master module needs to send a lot of different information to the puzzle modules, including the serial number, status LEDs, and indications that the game has begun, has been won, or has been lost. These pieces of information change the win condition of some of the modules in the case of the former two, and the behavior of the individual completion LEDs on each module in the case of the latter. In the <a href="https://github.com/elecanisms-2018-bombsquad/BombSquad/blob/master/lib/peripheral_core.c">peripheral_core.c file</a>, included in the compile files of all the puzzle modules, we use a case statement based on thedata prefix to determine which variable to update with the final five bits of the transmitted byte.
+                                <p>The master module needs to send a lot of different information to the puzzle modules, including the serial number, status LEDs, and indications that the game has begun, has been won, or has been lost. These pieces of information change the win condition of some of the modules in the case of the former two, and the behavior of the individual completion LEDs on each module in the case of the latter. In the <a href="https://github.com/elecanisms-2018-bombsquad/BombSquad/blob/master/lib/peripheral_core.c">peripheral_core.c file</a>, included in the compile files of all the puzzle modules, we use a case statement based on the data prefix to determine which variable to update with the final five bits of the transmitted byte.
                                 </p>
 
-                                <p>In reverse, the puzzle modules need to transmit infortmation to the master module, most importantly if the module has been solved or if there is a new strike. We also left four bits available as a spot for a potential error code, but since we were able to debug modules independently we did not implement any error coing. Since only completion and number of strikes were of interest to us, we used if statements to move these bits into their appropriate variable.
+                                <p>In reverse, the puzzle modules need to transmit infortmation to the master module, most importantly if the module has been solved or if there is a new strike. We also left four bits available as a spot for a potential error code, but since we were able to debug modules independently we did not implement any error coding. Since only completion and number of strikes were of interest to us, we used if statements to move these bits into their appropriate variable.
                                 </p>
 
                             <h3>Debug Strategies</h3>
@@ -180,7 +180,7 @@
                                         <header><h3>Master Module</h3></header>
                                         <section>
                                             <span class="image right"><img src="images/mastermodule.jpg" alt="" /></span>
-                                            <p>The master module holds the leader PIC microcontroller and serves as the master on the I2C bus. To the player, this module is for data display only. A seven segment display shows the time remaining in the game (5 minutes is the default) and how many strikes they have earned. On the top side of the module, a 2x16 LCD screen displays a randomly-generated serial number, as well as colored LED insicators for the randomly-generated flux, rtc, and eps information.
+                                            <p>The master module holds the leader PIC microcontroller and serves as the master on the I2C bus. To the player, this module is for data display only. A seven segment display shows the time remaining in the game (5 minutes is the default) and how many strikes they have earned. On the top side of the module, a 2x16 LCD screen displays a randomly-generated serial number, as well as colored LED indicators for the randomly-generated flux, rtc, and eps information.
                                                 <br> <br> <a href="https://github.com/elecanisms-2018-bombsquad/BombSquad/blob/master/module_master/master.c">See the code here </a>
                                             </p>
                                         </section>
@@ -190,7 +190,7 @@
                                         <header><h3>Switches Module</h3></header>
                                         <section>
                                             <span class="image right"><img src="images/switchesmodule.jpg" alt="" /></span>
-                                            <p> The swiches module presents players with eight switches in two rows, with confusing labels that might easily be mistaken or mixed up. Based on how many of the switches' initial positions match up with two lists, players follow one of three protocols to disarm the module.
+                                            <p> The switches module presents players with eight switches in two rows, with confusing labels that might easily be mistaken or mixed up. Based on how many of the switches' initial positions match up with two lists, players follow one of three protocols to disarm the module.
                                                 <br> <br> <a href="https://github.com/elecanisms-2018-bombsquad/BombSquad/blob/master/module_switchmatrix/switchmatrix.c">See the code here </a>
                                             </p>
                                         </section>
@@ -200,7 +200,7 @@
                                         <header><h3>Cables Module</h3></header>
                                         <section>
                                             <span class="image right"><img src="images/cablesmodule.jpg" alt="" /></span>
-                                            <p>The Switches Module presents players with color-coded 3.5mm audio cables and ports. Depending on which cables are plugged in and which of the flux, rtc, and ept LEDs are illuminated, players plug, unplug, and rearrange the cables until the module is complete.
+                                            <p>The Switches Module presents players with color-coded 3.5mm audio cables and ports. Depending on which cables are plugged in and which of the FLUX, RTC, and EPS LEDs are illuminated, players plug, unplug, and rearrange the cables until the module is complete.
                                                 <br> <br> <a href="https://github.com/elecanisms-2018-bombsquad/BombSquad/blob/master/module_auxcable/aux.c">See the code here </a>
                                             </p>
                                         </section>
@@ -210,7 +210,7 @@
                                         <header><h3>Combo Lock Module</h3></header>
                                         <section>
                                             <span class="image right"><img src="images/combolockmodule.jpg" alt="" /></span>
-                                            <p>A digital verison of the analog staple, the three-number code you need to crack here is based on arithmetic on the serial number.
+                                            <p>A digital versison of the analog staple, the three-number code you need to crack here is based on arithmetic on the serial number.
                                                 <br> <br> <a href="https://github.com/elecanisms-2018-bombsquad/BombSquad/blob/master/module_combolock/combolock.c">See the code here </a>
                                             </p>
                                         </section>
@@ -230,7 +230,7 @@
                                         <header><h3>Code Word Module</h3></header>
                                         <section>
                                             <span class="image right"><img src="images/codewordmodule.jpg" alt="" /></span>
-                                            <p>  The Code Word module is most closely based on the "Keep Talking and Nobody Explodes" game. In it, players see a readout of a five letter word. They must use the switches to cycle up and down through six possibilities for each of five letter until they can make one of the words from the manual. The rest of the players can use different startegies to help their teammate rule out different words. Once they find a word, the player can push the submit button to check their accxuracy. If it is correct, the module is solved and that portion of the bomb is defused. Otherwise, they earn another strike.
+                                            <p>  The Code Word module is most closely based on the "Keep Talking and Nobody Explodes" game. In it, players see a readout of a five letter word. They must use the switches to cycle up and down through six possibilities for each of five letter until they can make one of the words from the manual. The rest of the players can use different strategies to help their teammate rule out different words. Once they find a word, the player can push the submit button to check their accuracy. If it is correct, the module is solved and that portion of the bomb is defused. Otherwise, they earn another strike.
                                                 <br> <br> <a href="https://github.com/elecanisms-2018-bombsquad/BombSquad/blob/master/module_codeword/codeword.c">See the code here </a>
                                             </p>
 
@@ -241,7 +241,7 @@
                                         <header><h3>Morse Code Module</h3></header>
                                         <section>
                                             <span class="image right"><img src="images/morsecodemodule.jpg" alt="" /></span>
-                                            <p>Players watch the flashing red light to decode the Morse Code message. If they know morse code they can pass on the word to their teammates with the manual, otherwise the manual has a table that demystifies the dots (a short flash) and dashes (a long flash) into letters and words. Once you know the secret word, dial in the corresponding frequency and push the button to submit.
+                                            <p>Players watch the flashing red light to decode the Morse code message. If they know Morse code they can pass on the word to their teammates with the manual, otherwise the manual has a table that demystifies the dots (a short flash) and dashes (a long flash) into letters and words. Once you know the secret word, dial in the corresponding frequency and push the button to submit.
                                                 <br> <br> <a href="https://github.com/elecanisms-2018-bombsquad/BombSquad/blob/master/module_morse/morse.c">See the code here </a>
                                             </p>
                                         </section>
